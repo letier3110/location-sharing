@@ -3,6 +3,8 @@
 <html>
   <head>
     <title>Chat App</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.js"></script>
     <script src="/public/app.js"></script>
   </head>
   <body>
@@ -13,11 +15,12 @@
         <div id="users"></div>
         <hr class="visible-xs visible-sm" />
       </div>
-      <div>
+      <div id="map"></div>
+      <!-- <div>
         <input id="data" placeholder="send message" />
         <hr />
         <div id="conversation"></div>
-      </div>
+      </div> -->
     </div>
   </body>
 </html>

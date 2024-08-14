@@ -3,7 +3,8 @@ import { Application, Router } from "https://deno.land/x/oak@v16.1.0/mod.ts";
 const connectedClients = new Map();
 
 const app = new Application();
-const port = 8080;
+// read from environment variable or default to 8080
+const port = parseInt(Deno.env.get("PORT") || "8080");
 const router = new Router();
 
 // send a message to all connected clients
@@ -80,5 +81,16 @@ app.use(async (context) => {
   });
 });
 
-console.log("Listening at http://localhost:" + port);
+function generateFrontendEnvironmentVariables () {
+  // write file ./public/generated.js
+  const env = Deno.env.toObject();
+  // const envContent = `window.env = ${JSON.stringify(env)};`;
+  const envContent = `
+window.mapboxToken = "${env.MAPBOX_TOKEN}";
+window.appPort = ${port};
+`;
+  Deno.writeTextFileSync("./public/generated.js", envContent);
+}
+
+console.log("Listening at https://localhost:" + port);
 await app.listen({ port });
